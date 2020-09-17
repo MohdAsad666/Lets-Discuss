@@ -1,10 +1,13 @@
 const express = require('express');
 const User = require("../models/user_schema");
 
-// module.exports.profile = function(req,res)
-// {
-
-// }
+module.exports.profile = function(req,res)
+{
+    User.findById(req.params.id, function(err,user)
+    {
+        return res.render('profile',{title:"Profile",user:user});
+    });
+}
 
 module.exports.signUp = function(req,res)
 {
@@ -13,7 +16,7 @@ module.exports.signUp = function(req,res)
         return res.redirect('/');
     }
     else{
-    return res.render("sign-up.ejs");
+    return res.render("sign-up.ejs",{title:"Sign Up"});
     }
 }
 module.exports.signIn = function(req,res)
@@ -24,7 +27,7 @@ module.exports.signIn = function(req,res)
     }
     else
     {
-    return res.render("sign-in.ejs");
+    return res.render("sign-in.ejs",{title:"Sign In"});
     }
 }
 module.exports.destroySession = function(req,res)
