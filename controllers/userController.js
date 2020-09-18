@@ -8,7 +8,6 @@ module.exports.profile = function(req,res)
         return res.render('profile',{title:"Profile",user:user});
     });
 }
-
 module.exports.signUp = function(req,res)
 {
     if(req.isAuthenticated())
@@ -29,11 +28,6 @@ module.exports.signIn = function(req,res)
     {
     return res.render("sign-in.ejs",{title:"Sign In"});
     }
-}
-module.exports.destroySession = function(req,res)
-{
-    req.logout();
-    return res.redirect('/');
 }
 module.exports.create = function(req,res)
 {
@@ -72,5 +66,10 @@ module.exports.create = function(req,res)
 }
 module.exports.createSession = function(req,res)
 {
+    return res.redirect('/');
+}
+module.exports.destroySession = function(req,res)
+{
+    req.logout();
     return res.redirect('/');
 }
