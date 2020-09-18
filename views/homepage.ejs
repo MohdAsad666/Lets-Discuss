@@ -1,11 +1,24 @@
-<!-- <%-include('_header');%> -->
+
 <body>
 <h1>welcome to social elite</h1>
+<%if(locals.user){%>
 <section>
+    
     <form action="/user/post/create" method="POST">
         <textarea name="content" id="" cols="30" rows="4" placeholder="How you DOING"></textarea>
         <input type="submit" value="Post">
     </form>
 </section>
+<%}%>
+<section id="post-area">
+        <%for(post of posts){%>
+            <li>
+                <p>
+                    <%=post.content%>
+                    <br>
+                    <%=post.user.name%>
+                </p>
+            </li>
+        <%}%>
+</section>
 </body>
-<!-- <%-include('_footer');%> -->

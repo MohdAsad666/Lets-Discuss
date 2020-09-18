@@ -1,4 +1,4 @@
-const { Passport } = require('passport');
+const Passport  = require('passport');
 const passport = require('passport');
 const User = require("../models/user_schema");
 const localStrategy = require('passport-local').Strategy;
@@ -57,5 +57,4 @@ passport.setAuthentication = function(req,res,next)
     }
     return next();
 }
-
 module.exports = passport;
