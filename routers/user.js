@@ -9,4 +9,5 @@ router.get('/sign-in',userController.signIn)
 router.post('/createSession',passport.authenticate('local',{failureRedirect:'/user/sign-in'}),userController.createSession);
 router.get('/sign-out',userController.destroySession);
 router.use('/post',require("./post"));
+router.use('/comment',require("./comment"));
 module.exports = router;

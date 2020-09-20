@@ -19,6 +19,29 @@
                     <%=post.user.name%>
                 </p>
             </li>
+            
+                <div class="comment-form">
+                    <%if(locals.user){%>
+                    <form action="/user/comment/create" method="POST">
+                        <input type="text" name="comment" required>
+                        <input type="hidden" name="post" value="<%=post._id%>">
+                        <input type="submit" value="Add comment">
+                    </form>
+                     <%}%>
+                     <div>
+                         
+                        <ul id="post-container- <%=post._id%>">
+                            <%for(comment of post.comments){%>
+                                <%=comment.comment%>
+                            <br>
+                            <%=comment.user.name%>
+                            <%}%>
+                        </ul>
+                        
+                 </div>
+                </div>
+               
         <%}%>
+
 </section>
 </body>
