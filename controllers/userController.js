@@ -1,12 +1,18 @@
 const express = require('express');
 const User = require("../models/user_schema");
 
-module.exports.profile = function(req,res)
+module.exports.profile = async function(req,res)
 {
-    User.findById(req.params.id, function(err,user)
-    {
-        return res.render('profile',{title:"Profile",user:user});
-    });
+    let user = await User.findById(req.params.id);
+    try {
+        if(user)
+        {
+            return res.render('profile',{title:"Profile",user:user});
+        }
+    } catch (error) {
+        console.log("Error :: ", error);
+        return;
+    }
 }
 module.exports.signUp = function(req,res)
 {
@@ -31,8 +37,6 @@ module.exports.signIn = function(req,res)
 }
 module.exports.create = function(req,res)
 {
-    // console.log(req.body.email);
-    
     if(req.body.password!=req.body.confirm_pasword)
     {
         return res.redirect("/");
