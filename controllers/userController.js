@@ -77,3 +77,26 @@ module.exports.destroySession = function(req,res)
     req.logout();
     return res.redirect('/');
 }
+
+module.exports.updateUser = function(req,res)
+{
+    if(req.user.id==req.params.id)
+    {
+        // console.log("this is contoller ",req.user.id," ",req.params.id);
+        User.findByIdAndUpdate(req.params.id, req.body,function(err,user)
+        {
+            if(err)
+            {
+                console.log("Error in Updating the user");
+                return;
+            }
+            // console.log("done");
+            // user.save();
+            return res.redirect('back');
+        });
+    }
+    else
+    {
+        return res.status(401).send('Unothorized');
+    }
+}

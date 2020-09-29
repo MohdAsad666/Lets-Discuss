@@ -1,54 +1,18 @@
 
 <body>
-<h1>welcome to social elite</h1>
+    <div>
+    <h1>welcome to social elite</h1>
 <%if(locals.user){%>
 <section>
     
-    <form action="/user/post/create" method="POST">
+    <form action="/user/post/create" id="post-data-form" method="POST">
         <textarea name="content" id="" cols="30" rows="4" placeholder="How you DOING"></textarea>
         <input type="submit" value="Post">
     </form>
 </section>
 <%}%>
-<section id="post-area">
-        <%for(post of posts){%>
-            <li>
-                <p>
-                    <%if(locals.user && (post.user.id == locals.user.id)){%>
-                        <small><a href="/user/post/delete/<%=post.id%>">x</a></small>
-                    <%}%>
-                    <%=post.content%>
-                    <br>
-                    <%=post.user.name%>
-                </p>
-            </li>
-            
-                <div class="comment-form">
-                    <%if(locals.user){%>
-                    <form action="/user/comment/create" method="POST">
-                        <input type="text" name="comment" required>
-                        <input type="hidden" name="post" value="<%=post._id%>">
-                        <input type="submit" value="Add comment">
-                    </form>
-                     <%}%>
-                     <div>
-                         
-                        <ul id="post-container- <%=post._id%>">
-                            <%for(comment of post.comments){%>
-                                <%if(locals.user && ((comment.user.id == locals.user.id))){%>
-                                    <small><a href="/user/comment/delete/<%=comment.id%>">x</a></small>
-                                <%}%>
-                                <%=comment.comment%>
-                                <br>
-                                <%=comment.user.name%>
-                                <br>
-                            <%}%>
-                        </ul>
-                        
-                 </div>
-                </div>
-               
-        <%}%>
-
+<section>
+    <%-include('_post');%>
 </section>
+</div>
 </body>

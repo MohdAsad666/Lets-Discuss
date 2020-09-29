@@ -1,4 +1,18 @@
 <body>
+    <%if(locals.user){%>
+        <br>
+        <br>
+        <%if(user.id==locals.user.id){%>
+            <%console.log(user.id," ",locals.user.id)%>
+            <form action="/user/update/<%=user._id%>" method="POST"><br>
+                <input type="text" name="name" placeholder="username" value="<%=user.name%>"><br>
+                <input type="email" name="email" placeholder="email" value="<%=user.email%>"><br>
+                <input type="password" name="password" placeholder="password" value="<%=user.password%>"><br>
+                <input type="submit" value="update">
+            </form>
+            <%}%>
+<%}else{%>
     <h1><%=user.name%></h1>
     <h1><%=user.email%></h1>
+    <%}%>
 </body>

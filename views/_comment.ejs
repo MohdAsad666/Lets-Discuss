@@ -1,0 +1,13 @@
+<div>              
+    <ul id="post-container- <%=post._id%>">
+        <%for(comment of post.comments){%>
+            <%if(locals.user && ((comment.user.id == locals.user.id))){%>
+                <small><a href="/user/comment/delete/<%=comment.id%>">x</a></small>
+            <%}%>
+            <%=comment.comment%>
+            <br>
+            <%=comment.user.name%>
+            <br>
+        <%}%>
+    </ul>
+</div>

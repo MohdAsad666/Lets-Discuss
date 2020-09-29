@@ -12,7 +12,7 @@ const expressLayouts = require('express-ejs-layouts');
 app.use(express.urlencoded());
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, 'assets')));
+app.use(express.static(__dirname + '/assets'));
 app.set('views', path.join(__dirname, 'views'));
 app.use(expressLayouts);
 app.set("layout extractScripts", true);

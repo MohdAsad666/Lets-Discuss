@@ -2,23 +2,16 @@ const Post = require("../models/post_schema");
 const Comment = require('../models/comment_schema');
 module.exports.create = function(req,res)
 {
-    Post.create({
+    let post =  Post.create({
         content: req.body.content,
         user: req.user._id
-    },function(err,post)
-    {
-        if(err)
-        {
-            console.log("Error In Creating Post :: ",err);
-            return;
-        }
+    });
         return res.redirect('/');
-    })
 }
-module.exports.destroy = function(req,res)
+module.exports.destroy = async function(req,res)
 {
-    Post.findById(req.params.id,function(err,post)
-    {
+    let post = await Post.findById(req.params.id);
+    try {
         if(post.user == req.user.id)
         {
             post.remove();
@@ -29,10 +22,16 @@ module.exports.destroy = function(req,res)
                     return res.redirect('back');
                 }
             });
+            return res.redirect('back');
         }
         else{
             return res.redirect('back');
         }
+    } catch (error) {
+        if(error)
+        {
+            console.log("Error :: ",error);
+        }
         return res.redirect('back');
-    });
+    }
 }
