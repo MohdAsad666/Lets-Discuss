@@ -78,25 +78,30 @@ module.exports.destroySession = function(req,res)
     return res.redirect('/');
 }
 
-module.exports.updateUser = function(req,res)
+module.exports.updateUser = async function(req,res)
 {
     if(req.user.id==req.params.id)
     {
-        // console.log("this is contoller ",req.user.id," ",req.params.id);
-        User.findByIdAndUpdate(req.params.id, req.body,function(err,user)
-        {
-            if(err)
-            {
-                console.log("Error in Updating the user");
-                return;
-            }
-            // console.log("done");
-            // user.save();
-            return res.redirect('back');
-        });
-    }
-    else
-    {
-        return res.status(401).send('Unothorized');
+        try {
+            let user = await User.findById(req.params.id);
+            User.uploadedAvatar(req,res,function(err){
+                if(err)
+                {
+                    console.log("Error in Uploading file:: ",err);
+                }
+                user.name = req.body.name;
+                user.password = req.body.password;
+                user.email = req.body.email;
+                if(req.file)
+                {
+                    user.avatar = User.avatarPath + '/' + req.file.filename;
+                }
+                console.log(req.file);
+                user.save();
+                return res.redirect('back');
+            });
+        } catch (error) {
+            return res.status(401).send('Unauthorized');
+        }        
     }
 }
