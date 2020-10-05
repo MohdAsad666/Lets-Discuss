@@ -1,6 +1,7 @@
 const express = require('express');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
+
 const User = require("../models/user_schema");
 
 module.exports.profile = async function(req,res)
@@ -99,7 +100,7 @@ module.exports.updateUser = async function(req,res)
                     if(fs.existsSync(path.join(__dirname,'..',user.avatar))) {
                         fs.unlinkSync(path.join(__dirname,'..',user.avatar));
                     }
-                    
+                    // console.log((__dirname));
                     user.avatar = User.avatarPath + '/' + req.file.filename;
                 }
                 console.log(req.file);

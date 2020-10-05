@@ -4,6 +4,7 @@ const app = express();
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require("./config/passport-local");
+const passportGoogle = require('./config/passport-google-oauth2-strategy');
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo')(session);
 const db = require("./config/mongoose");
